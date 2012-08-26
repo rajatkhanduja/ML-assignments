@@ -6,7 +6,7 @@
 %   nClasses  - The number of classes in the dataset
 %
 
-function cumulativeConfusionMatrix = k_fold_cross_validation (dataset, nClasses, k)
+function cumulativeConfusionMatrix = k_fold_cross_validation_naive (dataset, nClasses, k)
   [nRows nCols] = size(dataset);
   step = floor (nRows / k);
   sets = zeros(step, nCols, k);

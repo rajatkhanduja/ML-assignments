@@ -7,9 +7,11 @@ dataset = csvread (datafile);
 % Modify dataset using threshold values. (TODO)
 
 
-% Add "Naive_Bayes" folder to the path
+% Add required folders to the path
 addpath("./Naive_Bayes");
-confusionMatrix = k_fold_cross_validation (dataset, 10, 4); % 4-fold
+addpath("./Evaluators");
+
+confusionMatrix = k_fold_cross_validation_naive (dataset, 10, 4); % 4-fold
 metricsMatrix = metrics (confusionMatrix);
 [precisions avgPrecision] = precision (metricsMatrix);
 avgPrecision
