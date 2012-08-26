@@ -37,9 +37,5 @@ function class = classify (prior, likelihood, testVector)
       maxProd = posterior(i);
       class = i;
     end
-    if maxProd == 0
-      printf ("Still zero !!!!\n")
-    end
-
   end
 end
