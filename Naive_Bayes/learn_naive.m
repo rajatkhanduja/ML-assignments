@@ -20,7 +20,7 @@ function [prior,likelihood] = learn_naive (dataset, nClasses)
 
   [nRows nCols] = size(dataset);
 
-  likelihood = ones (nCols - 1, nClasses); 
+  likelihood =  ones (nCols - 1, nClasses); 
   % Until the last step, this only contains the number of instances for 
   % which the feature is set corresponding to a class
   
@@ -38,7 +38,7 @@ function [prior,likelihood] = learn_naive (dataset, nClasses)
 
   % Now compute the actual prior and likelihood, i.e. probabilities
   for i = 1 : nCols - 1
-    likelihood(i,:) ./= prior;
+    likelihood(i,:) ./= prior + nClasses;
   end    
   prior ./= nRows;
 end

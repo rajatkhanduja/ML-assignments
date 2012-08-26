@@ -25,4 +25,6 @@ function [recalls avgRecall] = recall (metrics)
   else
     avgRecall = totalTP / (totalTP + totalFN);  
   end
+  totalTP
+  totalFN
 end

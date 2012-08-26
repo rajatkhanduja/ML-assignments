@@ -29,6 +29,8 @@ function class = classify (prior, likelihood, testVector)
     for j = 1 : nFeatures
       if (testVector(j) != 0)
         posterior(i) *=  likelihood (j, i);
+      else
+        posterior(i) *= (1 - likelihood (j, i));
       end
     end
     
