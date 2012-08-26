@@ -13,7 +13,6 @@ function classified = naive_bayes_classify (prior, likelihood, testVectors)
   [testRows testCols] = size(testVectors);
   classified = zeros (1, testRows);
   for i = 1 : testRows
-    printf ("Classifying\n");
     classified(i) = classify (prior, likelihood, testVectors(i,:));
   end
 end

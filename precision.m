@@ -7,7 +7,7 @@
 function [precisions avgPrecision] = precision (metricsMatrix)
   totalTP = 0;
   totalFP = 0;
-  nClasses = size(metricsMatrix)(3)
+  nClasses = size(metricsMatrix)(3);
   precisions = zeros (1, nClasses);
   for i = 1 : nClasses
     tp = metricsMatrix(1, 1, i);
