@@ -28,6 +28,8 @@ function cumulativeConfusionMatrix = k_fold_cross_validation_full_bayes (dataset
         trainSet = [trainSet; sets( : , : , j)];      
       end
     end
+    size (testSet)
+    size (trainSet)
     [prior meanVectors covarianceMatrix] = learn_full_naive (trainSet, nClasses);
     classified = classify_Full_Bayes(prior, meanVectors, covarianceMatrix, testSet);
     tmpConfusionMatrix = confusion_matrix (classified', correctClassification, nClasses);

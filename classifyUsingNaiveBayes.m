@@ -2,7 +2,8 @@
 % test classification using Naive Bayes on the data in "class.csv"
 
 %datafile = "fhr.csv";
-datafile = "../spambase.data";
+%datafile = "spambase.data";
+datafile = "synthetic-data";
 dataset = csvread (datafile);
 
 % Modify dataset using threshold values. (TODO)
