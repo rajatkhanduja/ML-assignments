@@ -10,7 +10,7 @@
 %   meanVectors
 %   covarianceMatrix
 function [priors meanVectors covarianceMatrix] = learn_full_naive (dataset, nClasses)
-  [nRows nCols] = size (dataset)
+  [nRows nCols] = size (dataset);
   nFeatures = nCols - 1;
   meanVectors = zeros (nClasses, nFeatures);
   covarianceMatrix = zeros (nFeatures, nFeatures, nClasses);

@@ -23,6 +23,4 @@ function [precisions avgPrecision] = precision (metricsMatrix)
   if totalTP != 0
     avgPrecision = totalTP / totalTPFP;
   end
-  totalTP
-  totalTPFP
 end
