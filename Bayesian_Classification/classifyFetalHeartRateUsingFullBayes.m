@@ -8,7 +8,7 @@ dataset = csvread (datafile);
 addpath("./Full_Bayes");
 addpath("./Evaluators");
 nClasses = 10;
-confusionMatrix = k_fold_cross_validation_full_bayes (dataset, nClasses, 4); % 4-fold
+confusionMatrix = k_fold_cross_validation_full_bayes (dataset, nClasses, 4) % 4-fold
 metricsMatrix = metrics (confusionMatrix);
 [precisions avgPrecision] = precision (metricsMatrix)
 [recalls avgRecall] = recall (metricsMatrix)

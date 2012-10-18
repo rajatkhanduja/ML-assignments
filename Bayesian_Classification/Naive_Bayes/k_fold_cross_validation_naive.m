@@ -31,6 +31,6 @@ function cumulativeConfusionMatrix = k_fold_cross_validation_naive (dataset, nCl
     [prior likelihood] = learn_naive (trainSet, nClasses);
     classified = naive_bayes_classify (prior, likelihood, testSet);
     tmpConfusionMatrix = confusion_matrix (classified', correctClassification, nClasses);
-    cumulativeConfusionMatrix .+= tmpConfusionMatrix;
+    cumulativeConfusionMatrix += tmpConfusionMatrix;
   end
 end
