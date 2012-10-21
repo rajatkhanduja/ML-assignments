@@ -38,3 +38,20 @@ for (i in seq(along = x))
 
 trainMatrix = trainMatrix[2:nrow(trainMatrix),]
 testMatrix  = testMatrix[2:nrow(testMatrix),]
+
+# PCA
+principalComp = prcomp (trainMatrix)
+eigenVals = principalComp$sdev
+x <- 1:360
+s = 0
+total = sum(eigenVals * eigenVals)
+for (k in seq(along=x))
+{
+  s = s + (eigenVals[k] * eigenVals[k])
+  if (s / total)
+  {
+    break
+  }
+}
+
+
