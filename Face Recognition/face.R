@@ -51,49 +51,54 @@ keepCols = varianceMat > 0.04152 # Manually obtained value
 #testMatrix  = testMatrix[, keepCols]
 
 # Mean vector
-trainMeanVector = numeric(ncol(trainMatrix))
-x <- 1:ncol(trainMatrix)
-for (i in seq(along=x))
-{
-  trainMeanVector[i] = mean(trainMatrix[,i])
-}
+trainMeanVector = colMeans (trainMatrix)
 
 # PCA
 principalComp = prcomp (trainMatrix)
 eigenVals = principalComp$sdev
 eigenVectors = principalComp$rotation
-x <- 1:360
-s = 0
-total = sum(eigenVals * eigenVals)
-for (k in seq(along=x))
-{
-  s = s + (eigenVals[k] * eigenVals[k])
-  if (s / total > 0.9)
-  {
-    break
-  }
-}
-U = eigenVectors[,1:k]
+#x <- 1:360
+#s = 0
+#total = sum(eigenVals * eigenVals)
 
-# Project both the training samples and test samples on the new dimensional space.
-newTrainSamples = (trainMatrix - trainMeanVector) %*% U
-newTestSamples  = (testMatrix  - trainMeanVector) %*% U
+#for (k in seq(along=x))
+#{
+#  s = s + (eigenVals[k] * eigenVals[k])
+#  if (s / total > 0.9)
+#  {
+#    break
+#  }
+#}
 
-x <- 1:nrow(testMatrix)
-y <- 1:nrow(trainMatrix)
-predicted = numeric (nrow(testMatrix))
-for (i in seq(along=x))
+c = 1:nrow(newTestSamples)
+
+accuracy = numeric( (360 - 10) / 10)
+for (k in seq(10, 30, 10))
 {
-  minDist = Inf
-  minIndex = -1
-  for (j in seq(along=y))
+  U = eigenVectors[,1:k]
+
+  # Project both the training samples and test samples on the new dimensional space.
+  newTrainSamples = (trainMatrix - trainMeanVector) %*% U
+  newTestSamples  = (testMatrix  - trainMeanVector) %*% U
+
+  y <- 1:nrow(newTrainSamples)
+  x <- 1:nrow(newTestSamples)
+  predicted = numeric (nrow(newTestSamples))
+  for (i in seq(along=x))
   {
-    distance = dist(rbind(trainMatrix[j], testMatrix[i]))
-    if (distance < minDist)
+    minDist = Inf
+    minIndex = -1
+    for (j in seq(along=y))
     {
-      minDist = distance
-      minIndex = j
+      distance = dist(rbind(newTrainSamples[j,], newTestSamples[i,]))[1]
+      if (distance < minDist)
+      {
+        minDist = distance
+        minIndex = j
+      }
     }
+    predicted[i] = ceiling(minIndex / 9)
   }
-  predicted[i] = minIndex
+
+  accuracy[k/10] = (sum (predicted == c) / 40)
 }
