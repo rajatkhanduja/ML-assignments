@@ -39,19 +39,61 @@ for (i in seq(along = x))
 trainMatrix = trainMatrix[2:nrow(trainMatrix),]
 testMatrix  = testMatrix[2:nrow(testMatrix),]
 
+# Compute variance of trainMatrix and removing rows that have low variance
+varianceMat = numeric (ncol(trainMatrix))
+x <- 1:ncol(trainMatrix)
+for (i in seq(along=x))
+{
+  varianceMat[i] = var(trainMatrix[,i])
+}
+keepCols = varianceMat > 0.04152 # Manually obtained value
+#trainMatrix = trainMatrix[, keepCols]
+#testMatrix  = testMatrix[, keepCols]
+
+# Mean vector
+trainMeanVector = numeric(ncol(trainMatrix))
+x <- 1:ncol(trainMatrix)
+for (i in seq(along=x))
+{
+  trainMeanVector[i] = mean(trainMatrix[,i])
+}
+
 # PCA
 principalComp = prcomp (trainMatrix)
 eigenVals = principalComp$sdev
+eigenVectors = principalComp$rotation
 x <- 1:360
 s = 0
 total = sum(eigenVals * eigenVals)
 for (k in seq(along=x))
 {
   s = s + (eigenVals[k] * eigenVals[k])
-  if (s / total)
+  if (s / total > 0.9)
   {
     break
   }
 }
+U = eigenVectors[,1:k]
 
+# Project both the training samples and test samples on the new dimensional space.
+newTrainSamples = (trainMatrix - trainMeanVector) %*% U
+newTestSamples  = (testMatrix  - trainMeanVector) %*% U
 
+x <- 1:nrow(testMatrix)
+y <- 1:nrow(trainMatrix)
+predicted = numeric (nrow(testMatrix))
+for (i in seq(along=x))
+{
+  minDist = Inf
+  minIndex = -1
+  for (j in seq(along=y))
+  {
+    distance = dist(rbind(trainMatrix[j], testMatrix[i]))
+    if (distance < minDist)
+    {
+      minDist = distance
+      minIndex = j
+    }
+  }
+  predicted[i] = minIndex
+}
