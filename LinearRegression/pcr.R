@@ -35,3 +35,12 @@ T_k_test = U_test[, 1:k] %*% D_test[1:k,1:k]
 
 estimatedOutput = T_k_test %*% cEstimate
 bindedTest = cbind (estimatedOutput, testOut)
+
+error = estimatedOutput - testOut
+absError = abs(error)
+meanAbsError = mean(absError)
+meanRelError = mean(absError / testOut)
+errorVar = var(error)
+print (meanAbsError)
+#print (meanRelError)
+#print (errorVar)

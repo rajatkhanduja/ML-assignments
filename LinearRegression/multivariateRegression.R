@@ -14,3 +14,9 @@ testOut   <- as.matrix(mpgtest[,1]);
 betaEstimate <- solve (t(trainAttr) %*% trainAttr) %*% t(trainAttr) %*% trainOut
 
 estimatedOutput <- testAttr %*% betaEstimate
+error = estimatedOutput - testOut
+absError = abs(error)
+meanAbsError = mean(absError)
+meanRelError = mean(absError / testOut)
+print (meanAbsError)
+#print (meanRelError)

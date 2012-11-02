@@ -69,11 +69,9 @@ eigenVectors = principalComp$rotation
 #    break
 #  }
 #}
-
 c = 1:nrow(newTestSamples)
-
 accuracy = numeric( (360 - 10) / 10)
-for (k in seq(10, 30, 10))
+for (k in seq(10, 360, 10))
 {
   U = eigenVectors[,1:k]
 
@@ -101,4 +99,7 @@ for (k in seq(10, 30, 10))
   }
 
   accuracy[k/10] = (sum (predicted == c) / 40)
+  img = pixmap(newTrainSamples[i,], nrow=92, ncol=112)
 }
+
+print(accuracy)

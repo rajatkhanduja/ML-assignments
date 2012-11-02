@@ -127,4 +127,6 @@ for (i in seq(along=x))
   }
   predicted[i] = ceiling(minIndex / 9)
 }
-
+print (rbind (seq(1,40), predicted))
+accuracy[k/10] = ( sum(predicted==seq(1,40)) / 40)
+print (accuracy)
